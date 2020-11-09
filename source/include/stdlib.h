@@ -17,6 +17,8 @@ void  free(void *pointer);
 void  abort(void);
 void  exit(int status);
 void  _Exit(int status);
+int   atoi(const char *str);
+long  strtol(const char *str, char **endptr, int base);
 
 #ifdef __cplusplus
 }

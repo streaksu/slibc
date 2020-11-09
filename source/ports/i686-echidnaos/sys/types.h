@@ -8,8 +8,8 @@ extern "C" {
 #endif
 
 typedef int32_t pid_t;
-typedef int64_t off_t;
-typedef int64_t ssize_t;
+typedef int32_t off_t;
+typedef int32_t ssize_t;
 
 #ifdef __cplusplus
 }

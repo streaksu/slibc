@@ -87,8 +87,30 @@ int fputs(const char *str, FILE *stream) {
 
 int fgetc(FILE *stream) {
     char c = EOF;
-    read(stream->inner_fd, &c, 1);
+    if (read(stream->inner_fd, &c, 1) == -1)
+        return EOF;
     return c;
+}
+
+char *fgets(char *restrict result, int count, FILE *restrict stream) {
+    /*char *ret = result;
+    int i;
+    for (i = 0; i < count - 1; i++) {
+        int c = fgetc(stream);
+        if (c == EOF) {
+            ret = NULL;
+            break;
+        }
+        result[i] = c;
+        if (c == '\n') {
+            break;
+        }
+    }
+    result[++i] = '\0';
+    return ret;*/
+    int i = read(stream->inner_fd, result, count - 1);
+    result[i] = '\0';
+    return i;
 }
 
 int fprintf(FILE *stream, const char *format, ...) {
@@ -109,6 +131,30 @@ int vfprintf(FILE *stream, const char *format, va_list args) {
 int fflush(FILE *stream) {
     (void)stream;
     return 0;
+}
+
+int fseek(FILE *stream, long offset, int whence) {
+    if (lseek(stream->inner_fd, offset, whence) == -1) {
+        return -1;
+    }
+    return 0;
+}
+
+off_t ftell(FILE *stream) {
+    return lseek(stream->inner_fd, 0, SEEK_CUR);
+}
+
+size_t fwrite(const void *pointer, size_t size, size_t nitems, FILE *stream) {
+    size_t         pointer_i = 0;
+    const uint8_t *data      = pointer;
+    for (size_t i = 0; i < nitems; i++) {
+        for (size_t j = 0; j < size; j++) {
+            if (fputc(data[pointer_i++], stream) == EOF) {
+                return i;
+            }
+        }
+    }
+    return nitems;
 }
 
 int remove(const char *pathname) {
@@ -134,7 +180,7 @@ int snprintf(char *result, size_t count, const char *format, ...) {
 
 int vsnprintf(char *result, size_t count, const char *format, va_list args) {
     size_t index = 0;
-    for (size_t i = 0; i < count && format[i]; i++) {
+    for (size_t i = 0; i < count - 1 && format[i]; i++) {
         if (format[i] != '%') {
             result[index++] = format[i];
             continue;

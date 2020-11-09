@@ -5,6 +5,9 @@
 extern "C" {
 #endif
 
+// Echidna doesnt use errno apparently so I just copied the linux ones.
+// Ought to do.
+
 // All of them shamelessly copied from
 // https://www-numi.fnal.gov/offline_software/srt_public_context/WebDocs/Errors/unix_system_errors.html
 // Give them a hug on my behalf.

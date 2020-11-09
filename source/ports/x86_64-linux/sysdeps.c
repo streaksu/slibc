@@ -143,3 +143,15 @@ int fork(void) {
 void _exit(int error_code) {
     LINUX_SYSCALL1_NORET(60, error_code);
 }
+
+off_t lseek(int fd, off_t offset, int whence) {
+    off_t ret;
+    LINUX_SYSCALL3(ret, 8, fd, offset, whence);
+
+    if (ret < 0) {
+        errno = -ret;
+    }
+
+    return ret;
+    
+}

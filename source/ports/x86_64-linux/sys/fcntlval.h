@@ -1,6 +1,10 @@
 #ifndef __SYS__FCNTLVAL_H__
 #define __SYS__FCNTLVAL_H__
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 #define O_ACCMODE       00000003
 #define O_RDONLY        00000000
 #define O_WRONLY        00000001
@@ -53,6 +57,14 @@
 #define O_NDELAY        O_NONBLOCK
 #endif
 
+#define SEEK_SET 0
+#define SEEK_END 2
+#define SEEK_CUR 1
+
 typedef int mode_t;
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif
