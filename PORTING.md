@@ -26,6 +26,7 @@ and their locations:
     - POSIX-compatible `fork`.
     - POSIX-compatible `_exit`.
     - POSIX-compatible `lseek`.
+    - POSIX-compatible `sbrk`.
     - All the desired optional functions.
 
 The functions being syscalls or not does not matter as long as they express

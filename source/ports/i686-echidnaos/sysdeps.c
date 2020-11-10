@@ -72,3 +72,12 @@ off_t lseek(int fd, off_t offset, int whence) {
                      :  );        
     return return_val;                               
 }
+
+void *sbrk(intptr_t size) {
+    size_t ptr = OS_get_heap_base() + OS_get_heap_size();
+    if (OS_resize_heap(OS_get_heap_size() + size)) == -1) {
+        errno = ENOMEM;
+        return (void *)-1;
+    }
+    return (void *)ptr;
+}

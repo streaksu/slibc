@@ -3,6 +3,7 @@
 
 #include <sys/types.h>
 #include <stddef.h>
+#include <stdint.h>
 
 #ifdef __cplusplus
 extern "C" {
@@ -17,6 +18,8 @@ int     unlink(const char *path);                     // Ditto.
 int     fork(void);                                   // Ditto.
 void    _exit(int status);                            // Ditto.
 off_t   lseek(int fd, off_t offset, int whence);      // Ditto.
+void   *sbrk(intptr_t increment);                     // Ditto.
+int     brk(void *address);
 
 #ifdef __cplusplus
 }

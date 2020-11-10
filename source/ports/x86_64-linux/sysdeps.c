@@ -155,3 +155,29 @@ off_t lseek(int fd, off_t offset, int whence) {
     return ret;
     
 }
+
+static intptr_t __base_brk = -1;
+
+void *sbrk(intptr_t increment) {
+    intptr_t current_brk;
+    LINUX_SYSCALL1(current_brk, 12, NULL);
+
+    if (__base_brk == -1) {
+        __base_brk = current_brk;
+    }
+
+    intptr_t new_brk = current_brk + increment;
+    if (new_brk < __base_brk) {
+        errno = ENOMEM;
+        return (void*)-1;
+    }
+
+    int ret;
+    LINUX_SYSCALL1(ret, 12, new_brk);
+    if (ret < 0) {
+        errno = -ret;
+        return (void*)-1;
+    }
+
+    return (void*)current_brk;
+}
