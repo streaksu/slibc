@@ -93,7 +93,6 @@ static void *__block_alloc(size_t block_count) {
         void  *new_bitmap      = (void *)((__heap_base + new_heap_size) - new_bitmap_size);
 
         if (brk((void *)(__heap_base + new_heap_size)) != 0) {
-            pthread_mutex_unlock(&__alloc_mutex);
             return NULL;
         }
 
