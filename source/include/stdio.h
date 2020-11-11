@@ -9,7 +9,8 @@
 extern "C" {
 #endif
 
-#define EOF (-1)
+#define getc fgetc
+#define EOF  (-1)
 
 typedef struct {
     int inner_fd;
@@ -38,6 +39,7 @@ int    remove(const char *pathname);
 int    sprintf(char *result,   const char *format, ...);
 int    snprintf(char *result,  size_t count, const char *format, ...);
 int    vsnprintf(char *result, size_t count, const char *format, va_list args);
+int    getchar(void);
 
 #ifdef __cplusplus
 }

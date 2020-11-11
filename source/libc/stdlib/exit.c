@@ -11,5 +11,5 @@ void exit(int status) {
 }
 
 void _Exit(int status) {
-    _exit(status);
+    exit(status);
 }

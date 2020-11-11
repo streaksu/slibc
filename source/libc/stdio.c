@@ -355,3 +355,7 @@ end:
 	*buf++ = '\0';
     return len;
 }
+
+int getchar(void) {
+	return fgetc(stdin);
+}
