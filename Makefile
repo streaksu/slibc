@@ -11,7 +11,7 @@ PRTDIR := source/ports/$(TARGET)
 CC      = cc
 AS      = cc
 AR      = ar
-CFLAGS  = -Wall -Wextra -Wpedantic -Ofast
+CFLAGS  = -Wall -Wextra -Wpedantic
 ASFLAGS =
 ARFLAGS =
 

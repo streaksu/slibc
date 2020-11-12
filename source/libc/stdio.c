@@ -6,10 +6,6 @@
 #include <unistd.h>
 #include <ctype.h>
 
-FILE *stdin  = &(FILE) { .inner_fd = 0 };
-FILE *stdout = &(FILE) { .inner_fd = 1 };
-FILE *stderr = &(FILE) { .inner_fd = 2 };
-
 int putchar(int character) {
     if (write(stdout->inner_fd, &character, 1) == -1) {
         return EOF;
@@ -33,64 +29,9 @@ int printf(const char *format, ...) {
     return ret;
 }
 
-FILE *fopen(const char *restrict filename, const char *restrict mode) {
-    int flags;
-
-    if (strcmp(mode, "r") == 0 || strcmp(mode, "rb") == 0) {
-        flags = O_RDONLY;
-    } else if (strcmp(mode, "w") == 0 || strcmp(mode, "wb") == 0) {
-        flags = O_WRONLY | O_CREAT | O_TRUNC;
-    } else if (strcmp(mode, "a") == 0 || strcmp(mode, "ab") == 0) {
-        flags = O_WRONLY | O_CREAT | O_APPEND;
-    } else if (strcmp(mode, "r+") == 0 || strcmp(mode, "rb+") == 0 || strcmp(mode, "r+b") == 0) {
-        flags = O_RDWR;
-    } else if (strcmp(mode, "w+") == 0 || strcmp(mode, "wb+") == 0 || strcmp(mode, "w+b") == 0) {
-        flags = O_RDWR | O_CREAT | O_TRUNC;
-    } else if (strcmp(mode, "a+") == 0 || strcmp(mode, "ab+") == 0 || strcmp(mode, "a+b") == 0) {
-        flags = O_RDWR | O_CREAT | O_APPEND;
-    } else {
-        errno = EINVAL;
-        return NULL;
-    }
-
-    FILE *ret = malloc(sizeof(FILE));
-    if (ret == NULL) {
-        errno = ENOMEM;
-        return NULL;
-    }
-
-    ret->inner_fd = open(filename, flags);
-    if (ret->inner_fd == -1) {
-        return NULL;
-    }
-
-    return ret;
-}
-
-int fclose(FILE *stream) {
-    int ret = close(stream->inner_fd);
-    free(stream);
-    return ret;
-}
-
-int fputc(int character, FILE *stream) {
-    if (write(stream->inner_fd, &character, 1) == -1) {
-        return EOF;
-    } else {
-        return character;
-    }
-}
-
 int fputs(const char *str, FILE *stream) {
     // XXX: Removed conditional branch by assuming EOF == -1.
     return write(stream->inner_fd, str, strlen(str));
-}
-
-int fgetc(FILE *stream) {
-    char c = EOF;
-    if (read(stream->inner_fd, &c, 1) == -1)
-        return EOF;
-    return c;
 }
 
 char *fgets(char *restrict result, int count, FILE *restrict stream) {
@@ -127,11 +68,6 @@ int vfprintf(FILE *stream, const char *format, va_list args) {
     int ret = vsnprintf(buffer, 300, format, args);
     write(stream->inner_fd, buffer, strlen(buffer));
     return ret;
-}
-
-int fflush(FILE *stream) {
-    (void)stream;
-    return 0;
 }
 
 int fseek(FILE *stream, long offset, int whence) {
@@ -180,182 +116,182 @@ int snprintf(char *result, size_t count, const char *format, ...) {
 }
 
 #define FMT_PUT(dst, len, c) {\
-				if(!(len)) goto end; \
-				*(dst)++ = (c); \
-				len--; \
-			}
+                if(!(len)) goto end; \
+                *(dst)++ = (c); \
+                len--; \
+            }
 static const char *digits_upper = "0123456789ABCDEF";
 static const char *digits_lower = "0123456789abcdef";
 
 static char *num_fmt(uint64_t i, int base, int padding, char pad_with, int handle_signed, int upper, int len) {
-	int neg = (signed)i < 0 && handle_signed;
+    int neg = (signed)i < 0 && handle_signed;
 
-	if (neg)
-		i = (unsigned)(-((signed)i));
+    if (neg)
+        i = (unsigned)(-((signed)i));
 
-	static char buf[50];
-	char *ptr = buf + 49;
-	*ptr = '\0';
+    static char buf[50];
+    char *ptr = buf + 49;
+    *ptr = '\0';
 
-	const char *digits = upper ? digits_upper : digits_lower;
+    const char *digits = upper ? digits_upper : digits_lower;
 
-	do {
-		*--ptr = digits[i % base];
-		if (padding)
-			padding--;
-		if (len > 0)
-			len--;
-	} while ((i /= base) != 0 && (len == -1 || len));
+    do {
+        *--ptr = digits[i % base];
+        if (padding)
+            padding--;
+        if (len > 0)
+            len--;
+    } while ((i /= base) != 0 && (len == -1 || len));
 
-	while (padding) {
-		*--ptr = pad_with;
-		padding--;
-	}
+    while (padding) {
+        *--ptr = pad_with;
+        padding--;
+    }
 
-	if (neg)
-		*--ptr = '-';
+    if (neg)
+        *--ptr = '-';
 
-	return ptr;
+    return ptr;
 }
 
 int vsnprintf(char *buf, size_t len, const char *fmt, va_list arg) {
-	uint64_t i;
-	char *s;
+    uint64_t i;
+    char *s;
 
-	while(*fmt && len) {
-		if (*fmt != '%') {
-			*buf++ = *fmt;
-			fmt++;
-			continue;
-		}
+    while(*fmt && len) {
+        if (*fmt != '%') {
+            *buf++ = *fmt;
+            fmt++;
+            continue;
+        }
 
-		fmt++;
-		int padding = 0;
-		char pad_with = ' ';
-		int wide = 0, upper = 0;
+        fmt++;
+        int padding = 0;
+        char pad_with = ' ';
+        int wide = 0, upper = 0;
 
-		if (*fmt == '0') {
-			pad_with = '0';
-			fmt++;
-		}
+        if (*fmt == '0') {
+            pad_with = '0';
+            fmt++;
+        }
 
-		while (isdigit(*fmt)) {
-			padding *= 10;			// noop on first iter
-			padding += *fmt++ - '0';
-		}
+        while (isdigit(*fmt)) {
+            padding *= 10;			// noop on first iter
+            padding += *fmt++ - '0';
+        }
 
-		while (*fmt == 'l') {
-			wide = 1;
-			fmt++;
-		}
+        while (*fmt == 'l') {
+            wide = 1;
+            fmt++;
+        }
 
-		upper = *fmt == 'X' || *fmt == 'P';
+        upper = *fmt == 'X' || *fmt == 'P';
 
-		switch (*fmt) {
-			case 'c': {
-				i = va_arg(arg, int);
-				FMT_PUT(buf, len, i)
-				break;
-			}
+        switch (*fmt) {
+            case 'c': {
+                i = va_arg(arg, int);
+                FMT_PUT(buf, len, i)
+                break;
+            }
 
-			case 'd': {
-				if (wide)
-					i = va_arg(arg, long int);
-				else
-					i = va_arg(arg, int);
+            case 'd': {
+                if (wide)
+                    i = va_arg(arg, long int);
+                else
+                    i = va_arg(arg, int);
 
-				char *c = num_fmt(i, 10, padding, pad_with, 1, 0, -1);
-				while (*c) {
-					FMT_PUT(buf, len, *c);
-					c++;
-				}
-				break;
-			}
+                char *c = num_fmt(i, 10, padding, pad_with, 1, 0, -1);
+                while (*c) {
+                    FMT_PUT(buf, len, *c);
+                    c++;
+                }
+                break;
+            }
 
-			case 'u': {
-				if (wide)
-					i = va_arg(arg, long int);
-				else
-					i = va_arg(arg, int);
+            case 'u': {
+                if (wide)
+                    i = va_arg(arg, long int);
+                else
+                    i = va_arg(arg, int);
 
-				char *c = num_fmt(i, 10, padding, pad_with, 0, 0, -1);
-				while (*c) {
-					FMT_PUT(buf, len, *c);
-					c++;
-				}
-				break;
-			}
+                char *c = num_fmt(i, 10, padding, pad_with, 0, 0, -1);
+                while (*c) {
+                    FMT_PUT(buf, len, *c);
+                    c++;
+                }
+                break;
+            }
 
-			case 'o': {
-				if (wide)
-					i = va_arg(arg, long int);
-				else
-					i = va_arg(arg, int);
+            case 'o': {
+                if (wide)
+                    i = va_arg(arg, long int);
+                else
+                    i = va_arg(arg, int);
 
-				char *c = num_fmt(i, 8, padding, pad_with, 0, 0, -1);
-				while (*c) {
-					FMT_PUT(buf, len, *c);
-					c++;
-				}
-				break;
-			}
+                char *c = num_fmt(i, 8, padding, pad_with, 0, 0, -1);
+                while (*c) {
+                    FMT_PUT(buf, len, *c);
+                    c++;
+                }
+                break;
+            }
 
-			case 'X':
-			case 'x': {
-				if (wide)
-					i = va_arg(arg, long int);
-				else
-					i = va_arg(arg, int);
+            case 'X':
+            case 'x': {
+                if (wide)
+                    i = va_arg(arg, long int);
+                else
+                    i = va_arg(arg, int);
 
-				char *c = num_fmt(i, 16, padding, pad_with, 0, upper, wide ? 16 : 8);
-				while (*c) {
-					FMT_PUT(buf, len, *c);
-					c++;
-				}
-				break;
-			}
+                char *c = num_fmt(i, 16, padding, pad_with, 0, upper, wide ? 16 : 8);
+                while (*c) {
+                    FMT_PUT(buf, len, *c);
+                    c++;
+                }
+                break;
+            }
 
-			case 'P':
-			case 'p': {
-				i = (uintptr_t)(va_arg(arg, void *));
+            case 'P':
+            case 'p': {
+                i = (uintptr_t)(va_arg(arg, void *));
 
-				char *c = num_fmt(i, 16, padding, pad_with, 0, upper, 16);
-				while (*c) {
-					FMT_PUT(buf, len, *c);
-					c++;
-				}
-				break;
-			}
+                char *c = num_fmt(i, 16, padding, pad_with, 0, upper, 16);
+                while (*c) {
+                    FMT_PUT(buf, len, *c);
+                    c++;
+                }
+                break;
+            }
 
-			case 's': {
-				s = va_arg(arg, char *);
-				while (*s) {
-					FMT_PUT(buf, len, *s);
-					s++;
-				}
-				break;
-			}
+            case 's': {
+                s = va_arg(arg, char *);
+                while (*s) {
+                    FMT_PUT(buf, len, *s);
+                    s++;
+                }
+                break;
+            }
 
-			case '%': {
-				FMT_PUT(buf, len, '%');
-				break;
-			}
-		}
+            case '%': {
+                FMT_PUT(buf, len, '%');
+                break;
+            }
+        }
 
-		fmt++;
-	}
+        fmt++;
+    }
 
 end:
-	if (!len) {
-		*buf++ = '.';	// requires extra reserved space
-		*buf++ = '.';
-		*buf++ = '.';
-	}
+    if (!len) {
+        *buf++ = '.';	// requires extra reserved space
+        *buf++ = '.';
+        *buf++ = '.';
+    }
 
-	*buf++ = '\0';
+    *buf++ = '\0';
     return len;
 }
 
 int getchar(void) {
-	return fgetc(stdin);
+    return fgetc(stdin);
 }
