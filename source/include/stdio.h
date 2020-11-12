@@ -16,45 +16,44 @@ extern "C" {
 
 typedef struct {
     int    inner_fd;
+    int    is_readable;
     int    is_writable;
     int    is_eof;
     int    is_error;
+    size_t buffer_base;
     size_t bytes_in_buffer;
     size_t buffer_i;
     char   buffer[FILE_BUFFER_SIZE];
-    int    ungetc;
 } FILE;
 
 extern FILE *stdin;
 extern FILE *stdout;
 extern FILE *stderr;
 
-FILE *fdopen(int fd, const char *mode);
-FILE *fopen(const char *restrict filename, const char *restrict mode);
-int   fclose(FILE *stream);
-
+FILE  *fdopen(int fd, const char *mode);
+FILE  *fopen(const char *filename, const char *mode);
+int    fclose(FILE *stream);
 int    fputc(int character, FILE *stream);
 int    fgetc(FILE *stream);
-int    ungetc(int c, FILE *stream);
-
-int    fputs(const char *str, FILE *stream);
-char  *fgets(char *restrict result, int count, FILE *restrict stream);
-
 int    fflush(FILE *stream);
-
-int    putchar(int character);
-int    puts(const char *str);
-int    printf(const char *format, ...);
-int    fprintf(FILE *stream, const char *format, ...);
-int    vfprintf(FILE *stream, const char *format, va_list args);
-int    fseek(FILE *stream, long offset, int whence);
-off_t  ftell(FILE *stream);
+int    fseek(FILE *stream, long offset, int where);
+long   ftell(FILE *stream);
+int    fputs(const char *str, FILE *stream);
+char  *fgets(char *result, int count, FILE *stream);
 size_t fwrite(const void *pointer, size_t size, size_t nitems, FILE *stream);
-int    remove(const char *pathname);
-int    sprintf(char *result,   const char *format, ...);
-int    snprintf(char *result,  size_t count, const char *format, ...);
-int    vsnprintf(char *result, size_t count, const char *format, va_list args);
+size_t fread(void *pointer, size_t size, size_t nitems, FILE *stream);
+int    putchar(int character);
 int    getchar(void);
+int    puts(const char *str);
+int    remove(const char *pathname);
+
+int printf(const char *format, ...);
+int fprintf(FILE *stream, const char *format, ...);
+int vfprintf(FILE *stream, const char *format, va_list args);
+int sprintf(char *result,   const char *format, ...);
+int snprintf(char *result,  size_t count, const char *format, ...);
+int vsnprintf(char *result, size_t count, const char *format, va_list args);
+
 
 #ifdef __cplusplus
 }

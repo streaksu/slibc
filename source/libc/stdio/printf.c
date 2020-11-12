@@ -6,53 +6,12 @@
 #include <unistd.h>
 #include <ctype.h>
 
-int putchar(int character) {
-    if (write(stdout->inner_fd, &character, 1) == -1) {
-        return EOF;
-    } else {
-        return character;
-    }
-}
-
-int puts(const char *str) {
-    const int fd = stdout->inner_fd;
-    write(fd, str,  strlen(str));
-    write(fd, "\n", 1);
-    return 0;
-}
-
 int printf(const char *format, ...) {
     va_list args;
     va_start(args, format);
     int ret = vfprintf(stdout, format, args);
     va_end(args);
     return ret;
-}
-
-int fputs(const char *str, FILE *stream) {
-    // XXX: Removed conditional branch by assuming EOF == -1.
-    return write(stream->inner_fd, str, strlen(str));
-}
-
-char *fgets(char *restrict result, int count, FILE *restrict stream) {
-    char *ret = result;
-    int i;
-    for (i = 0; i < count - 1; i++) {
-        int c = fgetc(stream);
-        if (c == EOF) {
-            ret = NULL;
-            break;
-        }
-        result[i] = c;
-        if (c == '\n') {
-            break;
-        }
-    }
-    result[++i] = '\0';
-    return ret;
-    /*int i = read(stream->inner_fd, result, count - 1);
-    result[i] = '\0';
-    return i;*/
 }
 
 int fprintf(FILE *stream, const char *format, ...) {
@@ -66,37 +25,8 @@ int fprintf(FILE *stream, const char *format, ...) {
 int vfprintf(FILE *stream, const char *format, va_list args) {
     char buffer[300];
     int ret = vsnprintf(buffer, 300, format, args);
-    write(stream->inner_fd, buffer, strlen(buffer));
+    fputs(buffer, stream);
     return ret;
-}
-
-int fseek(FILE *stream, long offset, int whence) {
-    if (lseek(stream->inner_fd, offset, whence) == -1) {
-        return -1;
-    }
-    return 0;
-}
-
-off_t ftell(FILE *stream) {
-    return lseek(stream->inner_fd, 0, SEEK_CUR);
-}
-
-size_t fwrite(const void *pointer, size_t size, size_t nitems, FILE *stream) {
-    size_t         pointer_i = 0;
-    const uint8_t *data      = pointer;
-    for (size_t i = 0; i < nitems; i++) {
-        for (size_t j = 0; j < size; j++) {
-            if (fputc(data[pointer_i++], stream) == EOF) {
-                return i;
-            }
-        }
-    }
-    return nitems;
-}
-
-int remove(const char *pathname) {
-    int ret = unlink(pathname);
-    return (ret && errno == EISDIR) ? rmdir(pathname) : ret;
 }
 
 int sprintf(char *result, const char *format, ...) {
@@ -290,8 +220,4 @@ end:
 
     *buf++ = '\0';
     return len;
-}
-
-int getchar(void) {
-    return fgetc(stdin);
 }

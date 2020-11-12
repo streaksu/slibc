@@ -11,7 +11,7 @@ PRTDIR := source/ports/$(TARGET)
 CC      = cc
 AS      = cc
 AR      = ar
-CFLAGS  = -Wall -Wextra -Wpedantic
+CFLAGS  = -Wall -Wextra -Wpedantic -g
 ASFLAGS =
 ARFLAGS =
 
@@ -61,7 +61,7 @@ install: install-headers all
 
 test: all
 	echo "Testing libc..."
-	$(CC) -Wall -ffreestanding -nostdlib -nostartfiles -static $(TSTDIR)/libc.c crt0.o libc.a -I$(INCDIR) -I$(PRTDIR) -o libctest
+	$(CC) -g -Wall -ffreestanding -nostdlib -nostartfiles -static $(TSTDIR)/libc.c crt0.o libc.a -I$(INCDIR) -I$(PRTDIR) -o libctest
 	./libctest
 	rm -rf libctest
 

@@ -13,7 +13,7 @@ extern "C" {
 // Set by system calls and some library functions in the event of an
 // error to indicate what went wrong.
 #define errno __errno
-extern _Thread_local int __errno;
+extern int __errno;
 
 #ifdef __cplusplus
 }
