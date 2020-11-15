@@ -4,6 +4,10 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 #define stringify(a) str(a)
 #define str(a)       #a
 
@@ -16,6 +20,10 @@
             exit(1); \
         } \
     } while (0)
+#endif
+
+#ifdef __cplusplus
+}
 #endif
 
 #endif

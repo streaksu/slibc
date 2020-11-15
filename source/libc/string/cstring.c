@@ -43,3 +43,29 @@ char *strcpy(char *destination, const char *source) {
     destination[i] = '\0';
     return destination;
 }
+
+char *strncpy(char *destination, const char *source, size_t count) {
+    size_t i;
+
+    for (i = 0; i < count && source[i]; i++) {
+        destination[i] = source[i];
+    }
+
+    for (; i < count; i++) {
+        destination[i] = 0;
+    }
+
+    return destination;
+}
+
+char *strcat(char *destination, const char *source) {
+    char *ret = destination;
+
+    while (*destination != '\0') {
+        destination++;
+    }
+
+    while ((*destination++ = *source++));
+
+    return ret;
+}

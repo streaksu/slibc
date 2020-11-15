@@ -1,6 +1,10 @@
 #ifndef __STDINT_H__
 #define __STDINT_H__
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 typedef __UINT8_TYPE__  uint8_t;
 typedef __UINT16_TYPE__ uint16_t;
 typedef __UINT32_TYPE__ uint32_t;
@@ -70,5 +74,9 @@ typedef __SIZE_TYPE__    size_t;
 
 #define SIG_ATOMIC_MAX __SIG_ATOMIC_MAX__
 #define SIG_ATOMIC_MIN __SIG_ATOMIC_MIN__
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif

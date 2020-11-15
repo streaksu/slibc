@@ -1,11 +1,11 @@
 #ifndef __ELF_H__
 #define __ELF_H__
 
+#include <stdint.h>
+
 #ifdef __cplusplus
 extern "C" {
 #endif
-
-#include <stdint.h>
 
 // Shamelesly copied from mlibc
 // https://github.com/managarm/mlibc/blob/master/options/elf/include/elf.h

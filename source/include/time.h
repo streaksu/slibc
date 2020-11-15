@@ -3,6 +3,10 @@
 
 #include <stddef.h>
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 struct tm {
     int tm_sec;
     int tm_min;
@@ -14,5 +18,9 @@ struct tm {
     int tm_yday;
     int tm_isdst;
 };
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif

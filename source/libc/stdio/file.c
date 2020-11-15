@@ -272,6 +272,14 @@ size_t fread(void *pointer, size_t size, size_t nitems, FILE *stream) {
     return nitems;
 }
 
+int feof(FILE *stream) {
+    return stream->is_eof;
+}
+
+int ferror(FILE *stream) {
+    return stream->is_error;
+}
+
 int putchar(int character) {
     return fputc(character, stdout);
 }

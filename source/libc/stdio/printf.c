@@ -45,6 +45,10 @@ int snprintf(char *result, size_t count, const char *format, ...) {
     return ret;
 }
 
+int vsprintf(char *result, const char *format, va_list args) {
+    return vsnprintf(result, SIZE_MAX, format, args);
+}
+
 #define FMT_PUT(dst, len, c) {\
                 if(!(len)) goto end; \
                 *(dst)++ = (c); \

@@ -11,6 +11,9 @@ size_t strlen(const char *str);
 int    strcmp(const char *str1, const char *str2);
 int    strncmp(const char *str1, const char *str2, size_t num);
 char  *strcpy(char *destination, const char *source);
+char  *strncpy(char *destination, const char *source, size_t count);
+char  *strcat(char *destination, const char *source);
+
 void  *memset(void *destination, int value, size_t count);
 void  *memcpy(void *destination, const void *source, size_t count);
 int    memcmp(const void *source1, const void *source2, size_t count);

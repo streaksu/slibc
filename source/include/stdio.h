@@ -10,6 +10,7 @@ extern "C" {
 #endif
 
 #define getc fgetc
+#define putc fputc
 #define EOF  (-1)
 
 #define FILE_BUFFER_SIZE 512
@@ -42,6 +43,7 @@ int    fputs(const char *str, FILE *stream);
 char  *fgets(char *result, int count, FILE *stream);
 size_t fwrite(const void *pointer, size_t size, size_t nitems, FILE *stream);
 size_t fread(void *pointer, size_t size, size_t nitems, FILE *stream);
+int    feof(FILE *stream);
 int    putchar(int character);
 int    getchar(void);
 int    puts(const char *str);
@@ -52,8 +54,8 @@ int fprintf(FILE *stream, const char *format, ...);
 int vfprintf(FILE *stream, const char *format, va_list args);
 int sprintf(char *result,   const char *format, ...);
 int snprintf(char *result,  size_t count, const char *format, ...);
+int vsprintf(char *result, const char *format, va_list args);
 int vsnprintf(char *result, size_t count, const char *format, va_list args);
-
 
 #ifdef __cplusplus
 }

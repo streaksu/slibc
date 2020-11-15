@@ -10,8 +10,7 @@ extern "C" {
 // for a basic implementation.
 #include <sys/errnoval.h>
 
-// Set by system calls and some library functions in the event of an
-// error to indicate what went wrong.
+// TODO: Make this thread-local.
 #define errno __errno
 extern int __errno;
 

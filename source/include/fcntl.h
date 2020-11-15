@@ -8,8 +8,16 @@
 // for a basic implementation.
 #include <sys/fcntlval.h>
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 int creat(const char *path, mode_t mode);
 int fcntl(int fd, int command, ...);        // Defined by the port.
 int open(const char *path, int oflag, ...); // Defined by the port.
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif
