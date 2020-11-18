@@ -4,6 +4,7 @@
 #include <errno.h>
 #include <assert.h>
 #include <sys/api.h>
+#include <sys/stat.h>
 
 int open(const char *path, int oflag, ...) {
     va_list args;
@@ -80,4 +81,37 @@ void *sbrk(intptr_t size) {
         return (void *)-1;
     }
     return (void *)ptr;
+}
+
+int stat(fsfd_target fsfdt, int fd, const char *path, int flags, struct stat *st) {
+    vfs_metadata_t metadata;
+
+    if (OS_vfs_get_metadata(path, &metadata, VFS_FILE_TYPE) == VFS_FAILURE) {
+        if (OS_vfs_get_metadata(path, &metadata, VFS_DIRECTORY_TYPE) == VFS_FAILURE) {
+             if (OS_vfs_get_metadata(path, &metadata, VFS_DEVICE_TYPE) == VFS_FAILURE) {
+                return ENOENT;
+            } else {
+                st->st_mode = S_IFBLK;
+            }
+        } else {
+            st->st_mode = S_IFDIR;
+        }
+    } else {
+        st->st_mode = S_IFREG;
+    }
+
+    st->st_dev = 0;
+    st->st_ino = 0;
+    st->st_nlink = 0;
+    st->st_uid = 0;
+    st->st_gid = 0;
+    st->st_rdev = 0;
+    st->st_size = metadata.size;
+    st->st_atime = 0;
+    st->st_mtime = 0;
+    st->st_ctime = 0;
+    st->st_blksize = 32768;
+    st->st_blocks = metadata.size / 32768 + 1;
+
+    return 0;
 }

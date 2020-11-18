@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <unistd.h>
 #include <errno.h>
+#include <sys/stat.h>
 
 #define LINUX_SYSCALL(ret, syscall) do {                             \
     __asm__ __volatile__ (                                           \
@@ -153,7 +154,6 @@ off_t lseek(int fd, off_t offset, int whence) {
     }
 
     return ret;
-    
 }
 
 static intptr_t __base_brk = -1;
@@ -180,4 +180,15 @@ void *sbrk(intptr_t increment) {
     }
 
     return (void*)current_brk;
+}
+
+int stat(const char *path, struct stat *result) {
+    int ret;
+    LINUX_SYSCALL2(ret, 4, path, result);
+
+    if (ret < 0) {
+        errno = -ret;
+    }
+
+    return ret;
 }

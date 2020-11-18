@@ -27,6 +27,7 @@ and their locations:
     - POSIX-compatible `_exit`.
     - POSIX-compatible `lseek`.
     - POSIX-compatible `sbrk`.
+    - POSIX-compatible `stat`.
     - All the desired optional functions.
 
 The functions being syscalls or not does not matter as long as they express
@@ -38,6 +39,7 @@ verbatim with the final instalation under `sys`, containing:
     - The definition of the `errnoval.h` and `fcntlval.h` headers, which define
     values taken by fcntl and errno C library utilities, by nature OS dependent.
     - The `types` header, since the types and values are part of the OS ABI.
+    - The `stat` header, with values and declarations of the `stat` sysdep.
     - Any desired optional headers. for optional declarations or values. 
 
 For a more practical example, the `x86_64-linux` is a complete documented
