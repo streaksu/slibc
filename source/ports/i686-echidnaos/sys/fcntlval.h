@@ -16,8 +16,6 @@ extern "C" {
 #define SEEK_END 1
 #define SEEK_CUR 2
 
-typedef int mode_t;
-
 #ifdef __cplusplus
 }
 #endif

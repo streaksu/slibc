@@ -20,6 +20,8 @@ int main(int argc, char *argv[]) {
     printf("%p\n", ptr1);
     ptr2 = realloc(ptr2, 22);
     printf("%p\n", ptr2);
+    free(ptr1);
+    free(ptr2);
 
     return 0;
 }
