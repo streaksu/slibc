@@ -3,6 +3,7 @@
 #include <unistd.h>
 #include <errno.h>
 #include <sys/stat.h>
+#include <time.h>
 
 #define LINUX_SYSCALL(ret, syscall) do {                             \
     __asm__ __volatile__ (                                           \
@@ -191,4 +192,16 @@ int stat(const char *path, struct stat *result) {
     }
 
     return ret;
+}
+
+int clock_gettime(clockid_t clock_id, struct timespec *tp) {
+    int ret;
+    LINUX_SYSCALL2(ret, 228, clock_id, tp);
+
+    if (ret < 0) {
+        errno = -ret;
+        return -1;
+    }
+
+    return 0;
 }

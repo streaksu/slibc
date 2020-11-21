@@ -115,3 +115,10 @@ int stat(fsfd_target fsfdt, int fd, const char *path, int flags, struct stat *st
 
     return 0;
 }
+
+
+int clock_gettime(clockid_t clock_id, struct timespec *tp) {
+    tp->tv_sec  = 0;
+    tp->tv_nsec = 0;
+    return 0;
+}

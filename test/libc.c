@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>
+#include <time.h>
 
 #define CWD_LEN 300
 
@@ -24,5 +25,6 @@ int main(int argc, char *argv[]) {
     free(ptr2);
 
     printf("The value of SHELL is: %s\n", getenv("SHELL"));
+    printf("The time is: %lu \n", time(NULL));
     return 0;
 }

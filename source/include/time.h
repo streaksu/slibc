@@ -2,22 +2,19 @@
 #define __TIME_H__
 
 #include <stddef.h>
+#include <sys/types.h>
+
+// The structures and clockid kernel-specific macros used in this file
+// defined accordingly to
+// https://pubs.opengroup.org/onlinepubs/9699919799/basedefs/time.h.html
+#include <sys/timeval.h>
 
 #ifdef __cplusplus
 extern "C" {
 #endif
 
-struct tm {
-    int tm_sec;
-    int tm_min;
-    int tm_hour;
-    int tm_mday;
-    int tm_mon;
-    int tm_year;
-    int tm_wday;
-    int tm_yday;
-    int tm_isdst;
-};
+int    clock_gettime(clockid_t clock_id, struct timespec *tp); // Implemented by the port.
+time_t time(time_t *store);
 
 #ifdef __cplusplus
 }

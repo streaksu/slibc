@@ -30,6 +30,7 @@ and their locations:
     - POSIX-compatible `lseek`.
     - POSIX-compatible `sbrk`.
     - POSIX-compatible `stat`.
+    - POSIX-compatible `clock_gettime`.
     - All the desired optional functions.
 
 The functions being syscalls or not does not matter as long as they express
@@ -38,8 +39,8 @@ syscall interface, for example.
 
 - A `sys` directory under `source/ports/X-Y/sys`, which will be installed
 verbatim with the final instalation under `sys`, containing:
-    - The definition of the `errnoval.h` and `fcntlval.h` headers, which define
-    values taken by fcntl and errno C library utilities, by nature OS dependent.
+    - The definition of the `errnoval.h`, `fcntlval.h` and `timeval.h` headers, which define
+    values taken by fcntl, errno and time functions, by nature OS dependent.
     - The `types` header, since the types and values are part of the OS ABI.
     - The `stat` header, with values and declarations of the `stat` sysdep.
     - Any desired optional headers. for optional declarations or values. 
