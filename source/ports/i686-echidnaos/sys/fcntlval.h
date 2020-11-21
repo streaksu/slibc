@@ -11,6 +11,7 @@ extern "C" {
 #define O_APPEND (1 << 3)
 #define O_CREAT  (1 << 4)
 #define O_TRUNC  (1 << 5)
+#define O_EXCL   (1 << 6)
 
 #define SEEK_SET 0
 #define SEEK_END 1
