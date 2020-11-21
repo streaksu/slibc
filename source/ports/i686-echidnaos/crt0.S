@@ -6,8 +6,4 @@ _start:
     push $0x1010      // Argv from hardcoded memory
     push (0x1000)     // Argc from hardcoded memory
     xor  %eax, %eax   // Per ABI and compatibility with icc
-    call __slibc_init // Init the libc
-    call main         // Jump to main!
-    add  $12, %esp    // Pop main's arguments
-    push %eax         // Main return to exit argument
-    call exit         // Terminate the program
+    call __slibc_init // Hand it off to the libc.

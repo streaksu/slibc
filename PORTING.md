@@ -14,7 +14,9 @@ There, in the chosen folder under [source/ports] a few items must be defined.
 Given that we are trying to port to `X-Y`, this are the items needed for a port
 and their locations:
 
-- `crt0.S` under `source/ports/X-Y/crt0.S`.
+- `crt0.S` under `source/ports/X-Y/crt0.S`, which sets up arguments to call
+    the `__slibc_init` symbol, with the signature
+    `void __slibc_init(int argc, char *argv[], char *envp[])`.
 - A series of C files implementing all the required functions, which are:
     - POSIX-compatible `open`.
     - POSIX-compatible `close`.

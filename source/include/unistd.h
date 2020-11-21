@@ -9,6 +9,8 @@
 extern "C" {
 #endif
 
+extern char **environ;
+
 int     close(int fd);                                // Implemented by the port.
 ssize_t read(int fd, void *buf, size_t count);        // Ditto.
 ssize_t write(int fd, const void *buf, size_t count); // Ditto.

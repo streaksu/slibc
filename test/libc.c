@@ -23,5 +23,6 @@ int main(int argc, char *argv[]) {
     free(ptr1);
     free(ptr2);
 
+    printf("The value of SHELL is: %s\n", getenv("SHELL"));
     return 0;
 }
