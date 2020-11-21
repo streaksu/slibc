@@ -48,6 +48,7 @@ int    putchar(int character);
 int    getchar(void);
 int    puts(const char *str);
 int    remove(const char *pathname);
+int    sscanf(const char *str, const char *format, ...);
 
 int printf(const char *format, ...);
 int fprintf(FILE *stream, const char *format, ...);

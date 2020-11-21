@@ -300,3 +300,13 @@ int remove(const char *pathname) {
     int ret = unlink(pathname);
     return (ret && errno == EISDIR) ? rmdir(pathname) : ret;
 }
+
+// TODO: Put ourselves thru the pain and suffering of actually implementing
+// scanf.
+int sscanf(const char *str, const char *format, ...) {
+    (void)str;
+    (void)format;
+    puts("sscanf is a stub");
+    exit(EXIT_FAILURE);
+    return EOF;
+}
