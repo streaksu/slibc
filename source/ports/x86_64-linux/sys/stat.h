@@ -4,6 +4,10 @@
 #include <time.h>
 #include <sys/types.h>
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 struct stat {
     dev_t           st_dev;
     ino_t           st_ino;
@@ -23,5 +27,9 @@ struct stat {
 };
 
 int stat(const char *path, struct stat *result);
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif
