@@ -2,11 +2,15 @@
 #include <stdlib.h>
 #include <unistd.h>
 #include <time.h>
+#include <setjmp.h>
 
 #define CWD_LEN 300
 
+static jmp_buf buffer;
+
 int main(int argc, char *argv[]) {
     char cwd[CWD_LEN];
+    int ret = setjmp(buffer);
     printf("Running from: %s\n", getcwd(cwd, CWD_LEN));
     for (int i = 0; i < argc; i++) {
         puts(argv[i]);
@@ -26,5 +30,7 @@ int main(int argc, char *argv[]) {
 
     printf("The value of SHELL is: %s\n", getenv("SHELL"));
     printf("The time is: %lu \n", time(NULL));
+
+    if (ret == 0) longjmp(buffer, 0);
     return 0;
 }
