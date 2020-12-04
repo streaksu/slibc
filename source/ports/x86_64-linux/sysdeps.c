@@ -37,6 +37,24 @@
     );                                                                       \
 } while (0)
 
+int fcntl(int fd, int command, ...) {
+    va_list args;
+    va_start(args, command);
+    uint64_t arg = va_arg(args, uint64_t);
+
+    int ret;
+    LINUX_SYSCALL3(ret, 72, fd, command, arg);
+
+    if (ret < 0) {
+        errno = -ret;
+        va_end(args);
+        return -1;
+    }
+
+    va_end(args);
+    return ret;
+}
+
 int open(const char *path, int oflag, ...) {
     va_list args;
     va_start(args, oflag);

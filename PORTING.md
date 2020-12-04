@@ -18,6 +18,7 @@ and their locations:
     the `__slibc_init` symbol, with the signature
     `void __slibc_init(int argc, char *argv[], char *envp[])`.
 - A series of C files implementing all the required functions, which are:
+    - POSIX-compatible `fcntl`.
     - POSIX-compatible `open`.
     - POSIX-compatible `close`.
     - POSIX-compatible `read`.

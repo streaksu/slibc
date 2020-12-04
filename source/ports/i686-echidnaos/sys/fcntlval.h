@@ -17,6 +17,8 @@ extern "C" {
 #define SEEK_END 1
 #define SEEK_CUR 2
 
+#define F_SETFD 69 // Placeholder.
+
 #ifdef __cplusplus
 }
 #endif

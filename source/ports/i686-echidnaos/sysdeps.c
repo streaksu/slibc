@@ -6,6 +6,11 @@
 #include <sys/api.h>
 #include <sys/stat.h>
 
+int fcntl(int fd, int command, ...) {
+    // TODO: Implement once echidnaOS supports it.
+    return -1;
+}
+
 int open(const char *path, int oflag, ...) {
     va_list args;
     va_start(args, oflag);
