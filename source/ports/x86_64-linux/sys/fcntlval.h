@@ -68,6 +68,14 @@ extern "C" {
 #define W_OK 2
 #define X_OK 1
 
+struct flock {
+    short l_type;
+    short l_whence;
+    off_t l_start;
+    off_t l_len;
+    pid_t l_pid;
+};
+
 #ifdef __cplusplus
 }
 #endif

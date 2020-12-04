@@ -148,3 +148,57 @@ int access(const char *path, int amode) {
     close(fd);
     return 0;
 }
+
+pid_t getpid(void) {
+    pid_t pid;
+    asm volatile (
+        "int $0x80"
+        : "=a"(pid)
+        : "a"(0x15)
+        : "edx", "memory"
+    );
+    return pid;
+}
+
+pid_t getppid(void) {
+    // TODO: Implement when echidnaOS supports it.
+    assert(!"This is a stub");
+    return 0;
+}
+
+pid_t getpgrp(void) {
+    // TODO: Implement when echidnaOS supports it.
+    assert(!"This is a stub");
+    return 0;
+}
+
+gid_t getgid(void) {
+    // TODO: Implement when echidnaOS supports it.
+    assert(!"This is a stub");
+    return 0;
+}
+
+gid_t getegid(void) {
+    // TODO: Implement when echidnaOS supports it.
+    assert(!"This is a stub");
+    return 0;
+}
+
+uid_t getuid(void) {
+    // TODO: Implement when echidnaOS supports it.
+    assert(!"This is a stub");
+    return 0;
+}
+
+int setuid(uid_t uid) {
+    // TODO: Implement when echidnaOS supports it.
+    (void)uid;
+    assert(!"This is a stub");
+    return -1;
+}
+
+uid_t geteuid(void) {
+    // TODO: Implement when echidnaOS supports it.
+    assert(!"This is a stub");
+    return 0;
+}

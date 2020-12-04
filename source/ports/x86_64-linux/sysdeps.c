@@ -248,3 +248,57 @@ int access(const char *path, int amode) {
 
     return 0;
 }
+
+pid_t getpid(void) {
+    pid_t ret;
+    LINUX_SYSCALL(ret, 39);
+    return ret;
+}
+
+pid_t getppid(void) {
+    pid_t ret;
+    LINUX_SYSCALL(ret, 110);
+    return ret;
+}
+
+pid_t getpgrp(void) {
+    pid_t ret;
+    LINUX_SYSCALL(ret, 111);
+    return ret;
+}
+
+gid_t getgid(void) {
+    gid_t ret;
+    LINUX_SYSCALL(ret, 104);
+    return ret;
+}
+
+gid_t getegid(void) {
+    gid_t ret;
+    LINUX_SYSCALL(ret, 108);
+    return ret;
+}
+
+uid_t getuid(void) {
+    uid_t ret;
+    LINUX_SYSCALL(ret, 102);
+    return ret;
+}
+
+int setuid(uid_t uid) {
+    int ret;
+    LINUX_SYSCALL1(ret, 105, uid);
+
+    if (ret < 0) {
+        errno = -ret;
+        return -1;
+    }
+
+    return 0;
+}
+
+uid_t geteuid(void) {
+    uid_t ret;
+    LINUX_SYSCALL(ret, 107);
+    return ret;
+}

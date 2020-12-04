@@ -34,6 +34,14 @@ and their locations:
     - POSIX-compatible `clock_gettime`.
     - POSIX-compatible `sched_yield`.
     - POSIX-compatible `access`.
+    - POSIX-compatible `getpid`.
+    - POSIX-compatible `getppid`.
+    - POSIX-compatible `getpgrp`.
+    - POSIX-compatible `getgid`. 
+    - POSIX-compatible `getegid`.
+    - POSIX-compatible `getuid`. 
+    - POSIX-compatible `setuid`.
+    - POSIX-compatible `geteuid`.
     - All the desired optional functions.
 
 The functions being syscalls or not does not matter as long as they express

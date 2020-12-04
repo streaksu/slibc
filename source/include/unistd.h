@@ -22,6 +22,14 @@ void    _exit(int status);                            // Ditto.
 off_t   lseek(int fd, off_t offset, int whence);      // Ditto.
 void   *sbrk(intptr_t increment);                     // Ditto.
 int     access(const char *path, int amode);          // Ditto.
+pid_t   getpid(void);                                 // Ditto.
+pid_t   getppid(void);                                // Ditto.
+pid_t   getpgrp(void);                                // Ditto.
+gid_t   getgid(void);                                 // Ditto.
+gid_t   getegid(void);                                // Ditto.
+uid_t   getuid(void);                                 // Ditto.
+int     setuid(uid_t uid);                            // Ditto.
+uid_t   geteuid(void);                                // Ditto.
 int     brk(void *address);
 
 #ifdef __cplusplus

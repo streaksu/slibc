@@ -5,6 +5,7 @@
 #include <sys/stat.h>
 #include <time.h>
 #include <sched.h>
+#include <assert.h>
 
 int fcntl(int fd, int command, ...) {
     va_list args;
@@ -275,5 +276,73 @@ int access(const char *path, int amode) {
     }
 
     close(fd);
+    return 0;
+}
+
+pid_t getpid(void) {
+    pid_t pid;
+    asm volatile (
+        "syscall"
+        : "=a"(pid)
+        : "a"(5)
+        : "rcx", "r11", "rdx"
+    );
+    return pid;
+}
+
+pid_t getppid(void) {
+    pid_t ppid;
+    asm volatile (
+        "syscall"
+        : "=a"(ppid)
+        : "a"(14)
+        : "rcx", "r11", "rdx"
+    );
+    return ppid;
+}
+
+pid_t getpgrp(void) {
+    pid_t pgid;
+    asm volatile (
+        "syscall"
+        : "=a"(pgid)
+        : "a"(38), "D"(0)
+        : "rcx", "r11", "rdx"
+    );
+    return pgid;
+}
+
+gid_t getgid(void) {
+    // TODO: Implement when echidnaOS supports it.
+    assert(!"This is a stub");
+    return 0;
+}
+
+gid_t getegid(void) {
+    // TODO: Implement when echidnaOS supports it.
+    assert(!"This is a stub");
+    return 0;
+}
+
+uid_t getuid(void) {
+    // TODO: Implement when echidnaOS supports it.
+    assert(!"This is a stub");
+    return 0;
+}
+
+int setuid(uid_t uid) {
+    int ret;
+    asm volatile (
+        "syscall"
+        : "=a" (ret)
+        : "a"(39), "D"(uid)
+        : "rcx", "r11", "rdx"
+    );
+    return ret;
+}
+
+uid_t geteuid(void) {
+    // TODO: Implement when echidnaOS supports it.
+    assert(!"This is a stub");
     return 0;
 }
