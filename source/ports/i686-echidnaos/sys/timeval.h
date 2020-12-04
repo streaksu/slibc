@@ -15,6 +15,11 @@ struct timespec {
     long   tv_nsec;
 };
 
+struct timeval {
+    time_t      tv_sec;
+    suseconds_t tv_usec;
+};
+
 #ifdef __cplusplus
 }
 #endif
