@@ -5,6 +5,9 @@
 extern "C" {
 #endif
 
+#include <sched.h>
+#include <time.h>
+
 typedef struct {
     int placeholder;
 } pthread_mutexattr_t;
@@ -44,10 +47,6 @@ typedef struct {
     int placeholder;
 } pthread_cond_t;
 
-struct timespec {
-    int placeholder;
-};
-
 int pthread_cond_init(pthread_cond_t *cond, const pthread_condattr_t *attr);
 int pthread_cond_destroy(pthread_cond_t *cond);
 int pthread_cond_wait(pthread_cond_t *cond, pthread_mutex_t *mutex);
@@ -78,8 +77,6 @@ int   pthread_key_create(pthread_key_t *key, void (*destructor)(void*));
 int   pthread_key_delete(pthread_key_t key);
 int   pthread_setspecific(pthread_key_t key, const void *specific);
 void *pthread_getspecific(pthread_key_t key);
-
-int sched_yield(void);
 
 #ifdef __cplusplus
 }

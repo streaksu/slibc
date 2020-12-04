@@ -4,6 +4,7 @@
 #include <errno.h>
 #include <sys/stat.h>
 #include <time.h>
+#include <sched.h>
 
 int fcntl(int fd, int command, ...) {
     va_list args;
@@ -117,6 +118,7 @@ char *getcwd(char *buf, size_t size) {
 
 int rmdir(const char *path) {
     // TODO: Qword does not really support this.
+    (void)path;
     return -1;
 }
 
@@ -185,7 +187,7 @@ static size_t __sbrk_pages = 0;
 static size_t __sbrk_size  = 0;
 
 void *sbrk(intptr_t increment) {
-    size_t size_left = (__sbrk_pages * PAGE_SIZE) - __sbrk_size;
+    ssize_t size_left = (__sbrk_pages * PAGE_SIZE) - __sbrk_size;
 
     if (increment > size_left) {
         size_t size_needed  = increment - size_left;
@@ -196,8 +198,8 @@ void *sbrk(intptr_t increment) {
         asm volatile (
             "syscall"
             : "=a"(ret), "=d"(sys_errno)
-		    : "a"(6), "D"(0), "S"(pages_needed)
-		    : "rcx", "r11"
+            : "a"(6), "D"(0), "S"(pages_needed)
+            : "rcx", "r11"
         );
 
         if (ret == NULL) {
@@ -256,5 +258,22 @@ int clock_gettime(clockid_t clock_id, struct timespec *tp) {
         errno = sys_errno;
     }
 
+    return 0;
+}
+
+int sched_yield(void) {
+    // TODO: Implement this once qword has it, if ever.
+    return -1;
+}
+
+int access(const char *path, int amode) {
+    (void)amode;
+
+    int fd = open(path, O_RDWR);
+    if (fd == -1) {
+        return -1;
+    }
+
+    close(fd);
     return 0;
 }

@@ -69,3 +69,14 @@ char *strcat(char *destination, const char *source) {
 
     return ret;
 }
+
+char *strchr(const char *string, int c) {
+    for (size_t i = 0; ; i++) {
+        if (string[i] == c) {
+            return (char *)&string[i];
+        }
+        if (string[i] == 0) {
+            return NULL;
+        }
+    }
+}

@@ -19,6 +19,11 @@ extern "C" {
 
 #define F_SETFD 69 // Placeholder.
 
+#define F_OK 1
+#define R_OK 2
+#define W_OK 4
+#define X_OK 8
+
 #ifdef __cplusplus
 }
 #endif

@@ -32,6 +32,8 @@ and their locations:
     - POSIX-compatible `sbrk`.
     - POSIX-compatible `stat`.
     - POSIX-compatible `clock_gettime`.
+    - POSIX-compatible `sched_yield`.
+    - POSIX-compatible `access`.
     - All the desired optional functions.
 
 The functions being syscalls or not does not matter as long as they express

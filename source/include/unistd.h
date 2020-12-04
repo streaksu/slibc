@@ -21,6 +21,7 @@ int     fork(void);                                   // Ditto.
 void    _exit(int status);                            // Ditto.
 off_t   lseek(int fd, off_t offset, int whence);      // Ditto.
 void   *sbrk(intptr_t increment);                     // Ditto.
+int     access(const char *path, int amode);          // Ditto.
 int     brk(void *address);
 
 #ifdef __cplusplus

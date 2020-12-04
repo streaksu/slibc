@@ -176,8 +176,3 @@ void *pthread_getspecific(pthread_key_t key) {
     assert(!"Not implemented");
     return NULL;
 }
-
-int sched_yield(void) {
-    assert(!"Not implemented");
-    return 0;
-}

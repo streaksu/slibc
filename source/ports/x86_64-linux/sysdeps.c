@@ -4,6 +4,7 @@
 #include <errno.h>
 #include <sys/stat.h>
 #include <time.h>
+#include <sched.h>
 
 #define LINUX_SYSCALL(ret, syscall) do {                             \
     __asm__ __volatile__ (                                           \
@@ -215,6 +216,30 @@ int stat(const char *path, struct stat *result) {
 int clock_gettime(clockid_t clock_id, struct timespec *tp) {
     int ret;
     LINUX_SYSCALL2(ret, 228, clock_id, tp);
+
+    if (ret < 0) {
+        errno = -ret;
+        return -1;
+    }
+
+    return 0;
+}
+
+int sched_yield(void) {
+    int ret;
+    LINUX_SYSCALL(ret, 24);
+
+    if (ret < 0) {
+        errno = -ret;
+        return -1;
+    }
+
+    return 0;
+}
+
+int access(const char *path, int amode) {
+    int ret;
+    LINUX_SYSCALL2(ret, 24, path, amode);
 
     if (ret < 0) {
         errno = -ret;

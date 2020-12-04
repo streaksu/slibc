@@ -5,9 +5,12 @@
 #include <assert.h>
 #include <sys/api.h>
 #include <sys/stat.h>
+#include <time.h>
 
 int fcntl(int fd, int command, ...) {
     // TODO: Implement once echidnaOS supports it.
+    (void)fd;
+    (void)command;
     return -1;
 }
 
@@ -88,7 +91,7 @@ void *sbrk(intptr_t size) {
     return (void *)ptr;
 }
 
-int stat(fsfd_target fsfdt, int fd, const char *path, int flags, struct stat *st) {
+int stat(const char *path, struct stat *result) {
     vfs_metadata_t metadata;
 
     if (OS_vfs_get_metadata(path, &metadata, VFS_FILE_TYPE) == VFS_FAILURE) {
@@ -96,34 +99,52 @@ int stat(fsfd_target fsfdt, int fd, const char *path, int flags, struct stat *st
              if (OS_vfs_get_metadata(path, &metadata, VFS_DEVICE_TYPE) == VFS_FAILURE) {
                 return ENOENT;
             } else {
-                st->st_mode = S_IFBLK;
+                result->st_mode = S_IFBLK;
             }
         } else {
-            st->st_mode = S_IFDIR;
+            result->st_mode = S_IFDIR;
         }
     } else {
-        st->st_mode = S_IFREG;
+        result->st_mode = S_IFREG;
     }
 
-    st->st_dev = 0;
-    st->st_ino = 0;
-    st->st_nlink = 0;
-    st->st_uid = 0;
-    st->st_gid = 0;
-    st->st_rdev = 0;
-    st->st_size = metadata.size;
-    st->st_atime = 0;
-    st->st_mtime = 0;
-    st->st_ctime = 0;
-    st->st_blksize = 32768;
-    st->st_blocks = metadata.size / 32768 + 1;
+    result->st_dev = 0;
+    result->st_ino = 0;
+    result->st_nlink = 0;
+    result->st_uid = 0;
+    result->st_gid = 0;
+    result->st_rdev = 0;
+    result->st_size = metadata.size;
+    result->st_atime = 0;
+    result->st_mtime = 0;
+    result->st_ctime = 0;
+    result->st_blksize = 32768;
+    result->st_blocks = metadata.size / 32768 + 1;
 
     return 0;
 }
 
 
 int clock_gettime(clockid_t clock_id, struct timespec *tp) {
-    tp->tv_sec  = 0;
-    tp->tv_nsec = 0;
+    // TODO: Implement this once echidnaOS supports it.
+    (void)clock_id;
+    (void)tp;
+    return -1;
+}
+
+int sched_yield(void) {
+    // TODO: Implement this once echidnaOS has it, if ever.
+    return -1;
+}
+
+int access(const char *path, int amode) {
+    (void)amode;
+
+    int fd = open(path, O_RDWR);
+    if (fd == -1) {
+        return -1;
+    }
+
+    close(fd);
     return 0;
 }
