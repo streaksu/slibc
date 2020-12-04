@@ -202,3 +202,16 @@ uid_t geteuid(void) {
     assert(!"This is a stub");
     return 0;
 }
+
+int execve(const char *path, char *const argv[], char *const envp[]) {
+    int discard1, discard2;
+
+    asm volatile (
+        "int $0x80"
+        : "=a"(discard1), "=d"(discard2)
+        : "a"(0x03), "c"(path), "d"(argv), "D"(envp)
+        : "memory"
+    );
+
+    return EIO;
+}

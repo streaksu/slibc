@@ -32,5 +32,14 @@ int main(int argc, char *argv[]) {
     printf("The time is: %lu \n", time(NULL));
 
     if (ret == 0) longjmp(buffer, 0);
+
+    pid_t f = fork();
+    if (f == 0) {
+        char *argv[] = {"ls", NULL};
+        execvpe(argv[0], argv, environ);
+    } else {
+        printf("My proud child panicking is %i", f);
+    }
+
     return 0;
 }

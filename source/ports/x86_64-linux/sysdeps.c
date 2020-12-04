@@ -150,8 +150,8 @@ int unlink(const char *path) {
     return 0;
 }
 
-int fork(void) {
-    ssize_t ret;
+pid_t fork(void) {
+    pid_t ret;
     LINUX_SYSCALL(ret, 57);
 
     if (ret < 0) {
@@ -300,5 +300,17 @@ int setuid(uid_t uid) {
 uid_t geteuid(void) {
     uid_t ret;
     LINUX_SYSCALL(ret, 107);
+    return ret;
+}
+
+int execve(const char *path, char *const argv[], char *const envp[]) {
+    int ret;
+    LINUX_SYSCALL3(ret, 59, path, argv, envp);
+
+    if (ret < 0) {
+        errno = -ret;
+        return -1;
+    }
+
     return ret;
 }

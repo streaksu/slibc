@@ -4,6 +4,7 @@
 #include <sys/types.h>
 #include <stddef.h>
 #include <stdint.h>
+#include <stdarg.h>
 
 #ifdef __cplusplus
 extern "C" {
@@ -31,6 +32,14 @@ uid_t   getuid(void);                                 // Ditto.
 int     setuid(uid_t uid);                            // Ditto.
 uid_t   geteuid(void);                                // Ditto.
 int     brk(void *address);
+
+int execl(const char *path, const char *arg0, ...);
+int execv(const char *path, char *const argv[]);
+int execle(const char *path, const char *arg0, ...);
+int execve(const char *path, char *const argv[], char *const envp[]); // Port.
+int execlp(const char *file, const char *arg0, ...);
+int execvp(const char *file, char *const argv[]);
+int execvpe(const char *file, char *const argv[], char *const envp[]);
 
 #ifdef __cplusplus
 }

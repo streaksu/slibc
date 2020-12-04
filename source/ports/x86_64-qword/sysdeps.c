@@ -346,3 +346,21 @@ uid_t geteuid(void) {
     assert(!"This is a stub");
     return 0;
 }
+
+int execve(const char *path, char *const argv[], char *const envp[]) {
+    int ret;
+    int sys_errno;
+
+    asm volatile (
+        "syscall"
+        : "=a"(ret), "=d"(sys_errno)
+        : "a"(11), "D"(path), "S"(argv), "d"(envp)
+        : "rcx", "r11"
+    );
+
+    if (ret == -1) {
+        errno = sys_errno;
+    }
+
+    return ret;
+}

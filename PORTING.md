@@ -42,6 +42,7 @@ and their locations:
     - POSIX-compatible `getuid`. 
     - POSIX-compatible `setuid`.
     - POSIX-compatible `geteuid`.
+    - POSIX-compatible `execve`.
     - All the desired optional functions.
 
 The functions being syscalls or not does not matter as long as they express
