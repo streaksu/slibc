@@ -214,6 +214,17 @@ int stat(const char *path, struct stat *result) {
     return ret;
 }
 
+int fstat(int fd, struct stat *result) {
+    int ret;
+    LINUX_SYSCALL2(ret, 5, fd, result);
+
+    if (ret < 0) {
+        errno = -ret;
+    }
+
+    return ret;
+}
+
 int clock_gettime(clockid_t clock_id, struct timespec *tp) {
     int ret;
     LINUX_SYSCALL2(ret, 228, clock_id, tp);

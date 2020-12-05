@@ -124,6 +124,13 @@ int stat(const char *path, struct stat *result) {
     return 0;
 }
 
+int fstat(int fd, struct stat *result) {
+    // TODO: Implement when echidnaOS supports it.
+    (void)fd;
+    (void)result;
+    assert(!"This is a stub");
+    return -1;
+}
 
 int clock_gettime(clockid_t clock_id, struct timespec *tp) {
     // TODO: Implement this once echidnaOS supports it.

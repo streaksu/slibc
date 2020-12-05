@@ -1,5 +1,5 @@
-#ifndef __SYS__STAT_H__
-#define __SYS__STAT_H__
+#ifndef __SYS__STATVAL_H__
+#define __SYS__STATVAL_H__
 
 #include <sys/types.h>
 
@@ -57,8 +57,6 @@ struct stat {
     blksize_t st_blksize;
     blkcnt_t  st_blocks;
 };
-
-int stat(const char *path, struct stat *result);
 
 #ifdef __cplusplus
 }

@@ -1,5 +1,6 @@
 #include <string.h>
 #include <stddef.h>
+#include <signal.h>
 
 size_t strlen(const char *str) {
     int i;
@@ -105,4 +106,8 @@ char *strstr(const char *string, const char *searched) {
     }
 
     return NULL;
+}
+
+char *strsignal(int signal) {
+    return (char *)sys_siglist[signal];
 }

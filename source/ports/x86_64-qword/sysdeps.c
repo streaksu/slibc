@@ -244,6 +244,25 @@ int stat(const char *path, struct stat *result) {
     return ret;
 }
 
+int fstat(int fd, struct stat *result) {
+	int ret;
+	int sys_errno;
+
+	asm volatile (
+        "syscall"
+		: "=a"(ret), "=d"(sys_errno)
+		: "a"(9), "D"(fd), "S"(result)
+		: "rcx", "r11"
+    );
+
+	if (ret == -1) {
+        errno = sys_errno;
+        return -1;
+    }
+
+	return 0;
+}
+
 int clock_gettime(clockid_t clock_id, struct timespec *tp) {
     int ret;
     int sys_errno;

@@ -31,6 +31,7 @@ and their locations:
     - POSIX-compatible `lseek`.
     - POSIX-compatible `sbrk`.
     - POSIX-compatible `stat`.
+    - POSIX-compatible `fstat`.
     - POSIX-compatible `clock_gettime`.
     - POSIX-compatible `sched_yield`.
     - POSIX-compatible `access`.
