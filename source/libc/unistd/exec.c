@@ -89,7 +89,7 @@ int execvpe(const char *file, char *const argv[], char *const envp[]) {
         strcpy(path + curr_len + 1, file);
         execve(path, argv, envp);
         if (errno == ENOEXEC) {
-            char *shell_argv = {path, NULL};
+            char *const shell_argv[] = {path, NULL};
             return execve(shell_argv[0], shell_argv, envp);
         } else if (curr_end == NULL) {
             break;
