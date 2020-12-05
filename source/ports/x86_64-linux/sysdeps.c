@@ -6,6 +6,8 @@
 #include <time.h>
 #include <sched.h>
 #include <assert.h>
+#include <stropts.h>
+#include <termios.h>
 
 #define LINUX_SYSCALL(ret, syscall) do {                             \
     __asm__ __volatile__ (                                           \
@@ -363,20 +365,6 @@ int nanosleep(const struct timespec *rqtp, struct timespec *rmtp) {
     return 0;
 }
 
-int isatty(int fd) {
-    int ret;
-    // TODO: Replace 0x5413 TIOCGWINSZ and aaa for struct winsize, one day.
-    char aaa[300];
-    LINUX_SYSCALL3(ret, 16, fd, 0x5413, &aaa); // ioctl because linux is linux.
-
-    if (ret < 0) {
-        errno = -ret;
-        return 0;
-    }
-
-    return 1;
-}
-
 int ttyname_r(int fd, char *name, size_t namesize) {
     // TODO: Implement when we have the will to do so.
     (void)fd;
@@ -402,4 +390,42 @@ int kill(pid_t pid, int signal) {
     }
 
     return 0;
+}
+
+int ioctl(int fd, int request, ...) {
+    va_list args;
+    va_start(args, request);
+    void *arg = va_arg(args, void *);
+    va_end(args);
+
+    int ret;
+    LINUX_SYSCALL3(ret, 16, fd, request, arg);
+
+    if (ret < 0) {
+        errno = -ret;
+        return -1;
+    }
+
+    return ret;
+}
+
+int tcgetattr(int fd, struct termios *result) {
+    if (ioctl(fd, TCGETS, result)) {
+        return -1;
+    }
+
+    return 0;
+}
+
+int tcsetattr(int fd, int action, const struct termios *result) {
+    if (action < 0 || action > 2) {
+        errno = EINVAL;
+        return -1;
+    }
+
+    return ioctl(fd, TCSETS + action, result);
+}
+
+int tcflow(int fd, int action) {
+    return ioctl(fd, TCXONC, action);
 }

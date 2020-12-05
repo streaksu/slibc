@@ -53,6 +53,7 @@ int    remove(const char *pathname);
 int    sscanf(const char *str, const char *format, ...);
 
 int printf(const char *format, ...);
+int vprintf(const char *format, va_list args);
 int fprintf(FILE *stream, const char *format, ...);
 int vfprintf(FILE *stream, const char *format, va_list args);
 int sprintf(char *result,   const char *format, ...);

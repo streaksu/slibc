@@ -34,7 +34,6 @@ gid_t    getegid(void);                                // Ditto.
 uid_t    getuid(void);                                 // Ditto.
 int      setuid(uid_t uid);                            // Ditto.
 uid_t    geteuid(void);                                // Ditto.
-int      isatty(int fd);                               // Ditto.
 unsigned alarm(unsigned seconds);                      // Ditto.
 int      brk(void *address);
 

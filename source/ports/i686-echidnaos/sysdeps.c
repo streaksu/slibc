@@ -6,6 +6,8 @@
 #include <sys/api.h>
 #include <sys/stat.h>
 #include <time.h>
+#include <stropts.h>
+#include <termios.h>
 
 int fcntl(int fd, int command, ...) {
     // TODO: Implement once echidnaOS supports it.
@@ -245,13 +247,6 @@ int nanosleep(const struct timespec *rqtp, struct timespec *rmtp) {
     return -1;
 }
 
-int isatty(int fd) {
-    // TODO: Implement when echidnaOS supports it.
-    (void)fd;
-    assert(!"This is a stub");
-    return 0;
-}
-
 int ttyname_r(int fd, char *name, size_t namesize) {
     // TODO: Implement when echidnaOS supports it.
     (void)fd;
@@ -272,6 +267,39 @@ int kill(pid_t pid, int signal) {
     // TODO: Implement when echidnaOS supports it.
     (void)pid;
     (void)signal;
+    assert(!"This is a stub");
+    return -1;
+}
+
+int ioctl(int fd, int request, ...) {
+    // TODO: Implement when echidnaOS supports it.
+    (void)fd;
+    (void)request;
+    assert(!"This is a stub");
+    return -1;
+}
+
+int tcgetattr(int fd, struct termios *result) {
+    // TODO: Implement when echidnaOS supports it.
+    (void)fd;
+    (void)result;
+    assert(!"This is a stub");
+    return -1;
+}
+
+int tcsetattr(int fd, int action, const struct termios *result) {
+    // TODO: Implement when echidnaOS supports it.
+    (void)fd;
+    (void)action;
+    (void)result;
+    assert(!"This is a stub");
+    return -1;
+}
+
+int tcflow(int fd, int action) {
+    // TODO: Implement when echidnaOS supports it.
+    (void)fd;
+    (void)action;
     assert(!"This is a stub");
     return -1;
 }

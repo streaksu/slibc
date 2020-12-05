@@ -14,6 +14,10 @@ int printf(const char *format, ...) {
     return ret;
 }
 
+int vprintf(const char *format, va_list args) {
+    return vfprintf(stdout, format, args);
+}
+
 int fprintf(FILE *stream, const char *format, ...) {
     va_list args;
     va_start(args, format);

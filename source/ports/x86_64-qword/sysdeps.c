@@ -6,6 +6,8 @@
 #include <time.h>
 #include <sched.h>
 #include <assert.h>
+#include <stropts.h>
+#include <termios.h>
 
 int fcntl(int fd, int command, ...) {
     va_list args;
@@ -427,24 +429,6 @@ int nanosleep(const struct timespec *rqtp, struct timespec *rmtp) {
     return 0;
 }
 
-int isatty(int fd) {
-    int ret;
-
-    asm volatile (
-        "syscall"
-        : "=a"(ret)
-        : "a"(31), "D"(fd)
-        : "rcx", "r11", "rdx"
-    );
-
-    if (ret) {
-        return 1;
-    } else {
-        errno = ENOTTY;
-        return 0;
-    }
-}
-
 int ttyname_r(int fd, char *name, size_t namesize) {
     // TODO: Implement when qword supports it.
     (void)fd;
@@ -469,6 +453,69 @@ int kill(pid_t pid, int signal) {
         "syscall"
         : "=a"(ret), "=d"(sys_errno)
         : "a"(27), "D"(pid), "S"(signal)
+        : "rcx", "r11"
+    );
+
+    if (ret == -1) {
+        errno = sys_errno;
+        return -1;
+    }
+
+    return 0;
+}
+
+int ioctl(int fd, int request, ...) {
+    // TODO: Implement when qwordOS supports it.
+    (void)fd;
+    (void)request;
+    assert(!"This is a stub");
+    return -1;
+}
+
+int tcgetattr(int fd, struct termios *result) {
+    int ret;
+    int sys_errno;
+
+    asm volatile (
+        "syscall"
+        : "=a"(ret), "=d"(sys_errno)
+        : "a"(24), "D"(fd), "S"(result)
+        : "rcx", "r11"
+    );
+
+    if (ret == -1) {
+        errno = sys_errno;
+        return -1;
+    }
+
+    return 0;
+}
+
+int tcsetattr(int fd, int action, const struct termios *result) {
+    int ret;
+    int sys_errno;
+    asm volatile (
+        "syscall"
+        : "=a"(ret), "=d"(sys_errno)
+        : "a"(23), "D"(fd), "S"(action), "d"(result)
+        : "rcx", "r11"
+    );
+
+    if (ret == -1) {
+        errno = sys_errno;
+        return -1;
+    }
+
+    return 0;
+}
+
+int tcflow(int fd, int action) {
+    int ret;
+    int sys_errno;
+    asm volatile (
+        "syscall"
+        : "=a"(ret), "=d"(sys_errno)
+        : "a"(30), "D"(fd), "S"(action)
         : "rcx", "r11"
     );
 

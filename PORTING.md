@@ -47,10 +47,13 @@ and their locations:
     - POSIX-compatible `geteuid`.
     - POSIX-compatible `execve`.
     - POSIX-compatible `nanosleep`.
-    - POSIX-compatible `isatty`.
     - POSIX-compatible `ttyname_r`.
     - POSIX-compatible `alarm`.
     - POSIX-compatible `kill`.
+    - POSIX-compatible `ioctl`.
+    - POSIX-compatible `tcgetattr`.
+    - POSIX-compatible `tcsetattr`.
+    - POSIX-compatible `tcflow`.
     - All the desired optional functions.
 - A declaration of `sys_siglist`.
 
@@ -60,9 +63,9 @@ syscall interface, for example.
 
 - A `sys` directory under `source/ports/X-Y/sys`, which will be installed
 verbatim with the final instalation under `sys`, containing:
-    - The definition of the `errnoval.h`, `fcntlval.h`, `timeval.h`, `statval.h
-     and `signalval.h` headers, which define values taken by fcntl, errno, time
-    functions, stat, and signals, by nature OS dependent.
+    - The definition of the `errnoval.h`, `fcntlval.h`, `timeval.h`, `statval.h`
+    `signalval.h`, `termiosval.h`, and `ioctlval.h` headers, which define values
+    taken by several functions that are by nature OS dependent.
     - The `types` header, since the types and values are part of the OS ABI.
     - Any desired optional headers. for optional declarations or values. 
 
