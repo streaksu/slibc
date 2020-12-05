@@ -46,6 +46,8 @@ and their locations:
     - POSIX-compatible `geteuid`.
     - POSIX-compatible `execve`.
     - POSIX-compatible `nanosleep`.
+    - POSIX-compatible `isatty`.
+    - POSIX-compatible `ttyname_r`.
     - All the desired optional functions.
 
 The functions being syscalls or not does not matter as long as they express

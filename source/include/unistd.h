@@ -34,6 +34,7 @@ gid_t   getegid(void);                                // Ditto.
 uid_t   getuid(void);                                 // Ditto.
 int     setuid(uid_t uid);                            // Ditto.
 uid_t   geteuid(void);                                // Ditto.
+int     isatty(int fd);                               // Ditto.
 int     brk(void *address);
 
 int execl(const char *path, const char *arg0, ...);
@@ -45,6 +46,11 @@ int execvp(const char *file, char *const argv[]);
 int execvpe(const char *file, char *const argv[], char *const envp[]);
 
 unsigned sleep(unsigned seconds);
+
+#define TTY_NAME_MAX 100
+
+int   ttyname_r(int fd, char *name, size_t namesize); // Port.
+char *ttyname(int fd);
 
 #ifdef __cplusplus
 }

@@ -280,6 +280,10 @@ int ferror(FILE *stream) {
     return stream->is_error;
 }
 
+int fileno(FILE *stream) {
+    return stream->inner_fd;
+}
+
 int putchar(int character) {
     return fputc(character, stdout);
 }

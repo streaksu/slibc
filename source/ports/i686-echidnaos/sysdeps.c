@@ -237,3 +237,19 @@ int nanosleep(const struct timespec *rqtp, struct timespec *rmtp) {
     assert(!"This is a stub");
     return -1;
 }
+
+int isatty(int fd) {
+    // TODO: Implement when echidnaOS supports it.
+    (void)fd;
+    assert(!"This is a stub");
+    return 0;
+}
+
+int ttyname_r(int fd, char *name, size_t namesize) {
+    // TODO: Implement when echidnaOS supports it.
+    (void)fd;
+    (void)name;
+    (void)namesize;
+    assert(!"This is a stub");
+    return -1;
+}

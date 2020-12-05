@@ -407,3 +407,30 @@ int nanosleep(const struct timespec *rqtp, struct timespec *rmtp) {
 
     return 0;
 }
+
+int isatty(int fd) {
+    int ret;
+
+    asm volatile (
+        "syscall"
+        : "=a"(ret)
+        : "a"(31), "D"(fd)
+        : "rcx", "r11", "rdx"
+    );
+
+    if (ret) {
+        return 1;
+    } else {
+        errno = ENOTTY;
+        return 0;
+    }
+}
+
+int ttyname_r(int fd, char *name, size_t namesize) {
+    // TODO: Implement when qword supports it.
+    (void)fd;
+    (void)name;
+    (void)namesize;
+    assert(!"This is a stub");
+    return -1;
+}
