@@ -391,3 +391,19 @@ int execve(const char *path, char *const argv[], char *const envp[]) {
 
     return ret;
 }
+
+int nanosleep(const struct timespec *rqtp, struct timespec *rmtp) {
+    asm volatile (
+        "syscall"
+        :
+        : "a"(40), "D"(rqtp->tv_sec + (rqtp->tv_nsec / 1000000000))
+        : "rcx", "r11"
+    );
+
+    if (rmtp != NULL) {
+        rmtp->tv_sec  = 0;
+        rmtp->tv_nsec = 0;
+    }
+
+    return 0;
+}

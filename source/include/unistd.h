@@ -44,6 +44,8 @@ int execlp(const char *file, const char *arg0, ...);
 int execvp(const char *file, char *const argv[]);
 int execvpe(const char *file, char *const argv[], char *const envp[]);
 
+unsigned sleep(unsigned seconds);
+
 #ifdef __cplusplus
 }
 #endif

@@ -229,3 +229,11 @@ int execve(const char *path, char *const argv[], char *const envp[]) {
 
     return EIO;
 }
+
+int nanosleep(const struct timespec *rqtp, struct timespec *rmtp) {
+    // TODO: Implement when echidnaOS supports it.
+    (void)rqtp;
+    (void)rmtp;
+    assert(!"This is a stub");
+    return -1;
+}

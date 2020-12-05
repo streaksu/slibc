@@ -43,5 +43,6 @@ int main(int argc, char *argv[]) {
     }
 
     puts(strstr("https://test.com", "ttps:"));
+    sleep(5);
     return 0;
 }

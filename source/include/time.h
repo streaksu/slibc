@@ -14,6 +14,7 @@ extern "C" {
 #endif
 
 int    clock_gettime(clockid_t clock_id, struct timespec *tp); // Implemented by the port.
+int    nanosleep(const struct timespec *rqtp, struct timespec *rmtp); // Ditto.
 time_t time(time_t *store);
 
 #ifdef __cplusplus

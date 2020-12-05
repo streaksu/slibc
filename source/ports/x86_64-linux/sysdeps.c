@@ -338,3 +338,15 @@ int execve(const char *path, char *const argv[], char *const envp[]) {
 
     return ret;
 }
+
+int nanosleep(const struct timespec *rqtp, struct timespec *rmtp) {
+    int ret;
+    LINUX_SYSCALL2(ret, 35, rqtp, rmtp);
+
+    if (ret < 0) {
+        errno = -ret;
+        return -1;
+    }
+
+    return 0;
+}

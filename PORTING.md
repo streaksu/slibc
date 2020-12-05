@@ -45,6 +45,7 @@ and their locations:
     - POSIX-compatible `setuid`.
     - POSIX-compatible `geteuid`.
     - POSIX-compatible `execve`.
+    - POSIX-compatible `nanosleep`.
     - All the desired optional functions.
 
 The functions being syscalls or not does not matter as long as they express
