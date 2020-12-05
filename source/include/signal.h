@@ -8,6 +8,8 @@
 extern "C" {
 #endif
 
+typedef void (*__sighandler)(int);
+
 extern const char *const sys_siglist[]; // Defined by the port.
 
 int kill(pid_t pid, int signal); // Defined by port.

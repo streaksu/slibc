@@ -40,6 +40,10 @@ extern "C" {
 #define S_ISLNK(mode)  (((mode) & S_IFMT) == S_IFLNK)
 #define S_ISSOCK(mode) (((mode) & S_IFMT) == S_IFSOCK)
 
+#define st_atime st_atim.tv_sec
+#define st_mtime st_mtim.tv_sec
+#define st_ctime st_ctim.tv_sec
+
 struct stat {
     dev_t           st_dev;
     ino_t           st_ino;
@@ -52,9 +56,9 @@ struct stat {
     off_t           st_size;
     blksize_t       st_blksize;
     blkcnt_t        st_blocks;
-    struct timespec st_atime;
-    struct timespec st_mtime;
-    struct timespec st_ctime;
+    struct timespec st_atim;
+    struct timespec st_mtim;
+    struct timespec st_ctim;
     long            __unused[3];
 };
 

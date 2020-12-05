@@ -16,6 +16,7 @@ char  *strcat(char *destination, const char *source);
 char  *strchr(const char *string, int c);
 char  *strrchr(const char *string, int c);
 char  *strstr(const char *string, const char *searched);
+char  *strpbrk(const char *string, const char *searched);
 char  *strsignal(int signal);
 
 void  *memset(void *destination, int value, size_t count);

@@ -6,6 +6,11 @@
 #define EXIT_FAILURE 1
 #define EXIT_SUCCESS 0
 
+// TODO: Actually use locales for this.
+// #define CURRENT_UTF8 (!!__pthread_self()->locale->cat[LC_CTYPE])
+// #define MB_CUR_MAX (CURRENT_UTF8 ? 4 : 1)
+#define MB_CUR_MAX 4
+
 #ifdef __cplusplus
 extern "C" {
 #endif

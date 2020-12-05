@@ -108,6 +108,16 @@ char *strstr(const char *string, const char *searched) {
     return NULL;
 }
 
+char *strpbrk(const char *string, const char *searched) {
+    while (*string) {
+        if (strchr(searched, *string++)) {
+            return (char*)--string;
+        }
+    }
+
+    return NULL;
+}
+
 char *strsignal(int signal) {
     return (char *)sys_siglist[signal];
 }

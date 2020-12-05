@@ -7,6 +7,11 @@
 #include <stdarg.h>
 #include <sys/fcntlval.h>
 
+#define _POSIX_VERSION  200809L
+#define _POSIX2_VERSION 200809L
+#define _XOPEN_VERSION  700
+//#define _POSIX_THREADS 200809L
+
 #ifdef __cplusplus
 extern "C" {
 #endif
