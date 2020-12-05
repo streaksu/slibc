@@ -526,3 +526,11 @@ int tcflow(int fd, int action) {
 
     return 0;
 }
+
+int fchmod(int fd, mode_t mode) {
+    // TODO: Implement when qword supports it.
+    (void)fd;
+    (void)mode;
+    assert(!"This is a stub");
+    return -1;
+}

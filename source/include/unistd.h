@@ -57,6 +57,9 @@ unsigned sleep(unsigned seconds);
 int   ttyname_r(int fd, char *name, size_t namesize); // Port.
 char *ttyname(int fd);
 
+int dup(int fd);
+int dup2(int fd, int fd2);
+
 #ifdef __cplusplus
 }
 #endif

@@ -54,6 +54,7 @@ and their locations:
     - POSIX-compatible `tcgetattr`.
     - POSIX-compatible `tcsetattr`.
     - POSIX-compatible `tcflow`.
+    - POSIX-compatible `fchmod`.
     - All the desired optional functions.
 - A declaration of `sys_siglist`.
 

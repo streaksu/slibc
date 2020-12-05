@@ -429,3 +429,15 @@ int tcsetattr(int fd, int action, const struct termios *result) {
 int tcflow(int fd, int action) {
     return ioctl(fd, TCXONC, action);
 }
+
+int fchmod(int fd, mode_t mode) {
+    int ret;
+    LINUX_SYSCALL2(ret, 91, fd, mode);
+
+    if (ret < 0) {
+        errno = -ret;
+        return -1;
+    }
+
+    return 0;
+}

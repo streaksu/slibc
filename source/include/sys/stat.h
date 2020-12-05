@@ -2,6 +2,7 @@
 #define __SYS__STAT_H__
 
 #include <sys/statval.h> // Kernel-specific stat values.
+#include <sys/types.h>
 
 #ifdef __cplusplus
 extern "C" {
@@ -9,6 +10,7 @@ extern "C" {
 
 int stat(const char *path, struct stat *result); // Port.
 int fstat(int fd, struct stat *result);          // Ditto.
+int fchmod(int fd, mode_t mode);                 // Ditto.
 
 #ifdef __cplusplus
 }
