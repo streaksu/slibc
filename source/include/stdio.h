@@ -4,6 +4,7 @@
 #include <stddef.h>
 #include <stdarg.h>
 #include <sys/types.h>
+#include <sys/fcntlval.h>
 
 #ifdef __cplusplus
 extern "C" {

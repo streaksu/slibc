@@ -5,6 +5,7 @@
 #include <stddef.h>
 #include <stdint.h>
 #include <stdarg.h>
+#include <sys/fcntlval.h>
 
 #ifdef __cplusplus
 extern "C" {
@@ -23,10 +24,12 @@ void    _exit(int status);                            // Ditto.
 off_t   lseek(int fd, off_t offset, int whence);      // Ditto.
 void   *sbrk(intptr_t increment);                     // Ditto.
 int     access(const char *path, int amode);          // Ditto.
+int     pipe(int fds[2]);                             // Ditto.
 pid_t   getpid(void);                                 // Ditto.
 pid_t   getppid(void);                                // Ditto.
 pid_t   getpgrp(void);                                // Ditto.
 gid_t   getgid(void);                                 // Ditto.
+int     setgid(gid_t gid);                            // Ditto.
 gid_t   getegid(void);                                // Ditto.
 uid_t   getuid(void);                                 // Ditto.
 int     setuid(uid_t uid);                            // Ditto.

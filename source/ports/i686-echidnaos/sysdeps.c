@@ -149,6 +149,13 @@ int access(const char *path, int amode) {
     return 0;
 }
 
+int pipe(int fds[2]) {
+    // TODO: Implement when echidnaOS supports it.
+    (void)fds;
+    assert(!"This is a stub");
+    return -1;
+}
+
 pid_t getpid(void) {
     pid_t pid;
     asm volatile (
@@ -176,6 +183,13 @@ gid_t getgid(void) {
     // TODO: Implement when echidnaOS supports it.
     assert(!"This is a stub");
     return 0;
+}
+
+int setgid(gid_t gid) {
+    // TODO: Implement when echidnaOS supports it.
+    (void)gid;
+    assert(!"This is a stub");
+    return -1;
 }
 
 gid_t getegid(void) {

@@ -34,10 +34,12 @@ and their locations:
     - POSIX-compatible `clock_gettime`.
     - POSIX-compatible `sched_yield`.
     - POSIX-compatible `access`.
+    - POSIX-compatible `pipe`.
     - POSIX-compatible `getpid`.
     - POSIX-compatible `getppid`.
     - POSIX-compatible `getpgrp`.
     - POSIX-compatible `getgid`. 
+    - POSIX-compatible `setgid`.
     - POSIX-compatible `getegid`.
     - POSIX-compatible `getuid`. 
     - POSIX-compatible `setuid`.

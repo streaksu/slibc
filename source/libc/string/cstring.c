@@ -80,3 +80,29 @@ char *strchr(const char *string, int c) {
         }
     }
 }
+
+char *strrchr(const char *string, int c) {
+    for (size_t i = 0, last_index = 0; ; i++) {
+        if (string[i] == c) {
+            last_index = i;
+        }
+        if (string[i] == 0) {
+            return (char *)&string[last_index];
+        }
+    }
+}
+
+char *strstr(const char *string, const char *searched) {
+    size_t searched_len = strlen(searched);
+
+    for (size_t i = 0; string[i]; i++) {
+        if (string[i] != searched[i]) {
+            continue;
+        }
+        if (strncmp(&string[i], searched, searched_len) == 0) {
+            return (char *)&string[i];
+        }
+    }
+
+    return NULL;
+}

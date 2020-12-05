@@ -3,6 +3,7 @@
 #include <unistd.h>
 #include <time.h>
 #include <setjmp.h>
+#include <string.h>
 
 #define CWD_LEN 300
 
@@ -38,8 +39,9 @@ int main(int argc, char *argv[]) {
         char *argv[] = {"ls", NULL};
         execvpe(argv[0], argv, environ);
     } else {
-        printf("My proud child panicking is %i", f);
+        printf("My proud child panicking is %i\n", f);
     }
 
+    puts(strstr("https://test.com", "ttps:"));
     return 0;
 }

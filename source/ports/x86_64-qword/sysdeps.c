@@ -279,6 +279,26 @@ int access(const char *path, int amode) {
     return 0;
 }
 
+
+int pipe(int fds[2]) {
+    int ret;
+    int sys_errno;
+
+    asm volatile (
+        "syscall"
+        : "=a"(ret), "=d"(sys_errno)
+        : "a"(19), "D"(fds), "S"(0)
+        : "rcx", "r11"
+    );
+
+    if (ret == -1) {
+        errno = sys_errno;
+        return -1;
+    }
+
+    return 0;
+}
+
 pid_t getpid(void) {
     pid_t pid;
     asm volatile (
@@ -313,19 +333,26 @@ pid_t getpgrp(void) {
 }
 
 gid_t getgid(void) {
-    // TODO: Implement when echidnaOS supports it.
+    // TODO: Implement when qword supports it.
     assert(!"This is a stub");
     return 0;
 }
 
+int setgid(gid_t gid) {
+    // TODO: Implement when qword supports it.
+    (void)gid;
+    assert(!"This is a stub");
+    return -1;
+}
+
 gid_t getegid(void) {
-    // TODO: Implement when echidnaOS supports it.
+    // TODO: Implement when qword supports it.
     assert(!"This is a stub");
     return 0;
 }
 
 uid_t getuid(void) {
-    // TODO: Implement when echidnaOS supports it.
+    // TODO: Implement when qword supports it.
     assert(!"This is a stub");
     return 0;
 }
@@ -342,7 +369,7 @@ int setuid(uid_t uid) {
 }
 
 uid_t geteuid(void) {
-    // TODO: Implement when echidnaOS supports it.
+    // TODO: Implement when qword supports it.
     assert(!"This is a stub");
     return 0;
 }

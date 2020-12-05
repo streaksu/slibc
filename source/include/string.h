@@ -14,6 +14,8 @@ char  *strcpy(char *destination, const char *source);
 char  *strncpy(char *destination, const char *source, size_t count);
 char  *strcat(char *destination, const char *source);
 char  *strchr(const char *string, int c);
+char  *strrchr(const char *string, int c);
+char  *strstr(const char *string, const char *searched);
 
 void  *memset(void *destination, int value, size_t count);
 void  *memcpy(void *destination, const void *source, size_t count);
