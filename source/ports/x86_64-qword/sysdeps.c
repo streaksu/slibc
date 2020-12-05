@@ -434,3 +434,29 @@ int ttyname_r(int fd, char *name, size_t namesize) {
     assert(!"This is a stub");
     return -1;
 }
+
+unsigned alarm(unsigned seconds) {
+    // TODO: Implement when echidnaOS supports it.
+    (void)seconds;
+    assert(!"This is a stub");
+    return 0;
+}
+
+int kill(pid_t pid, int signal) {
+    int ret;
+    int sys_errno;
+
+    asm volatile (
+        "syscall"
+        : "=a"(ret), "=d"(sys_errno)
+        : "a"(27), "D"(pid), "S"(signal)
+        : "rcx", "r11"
+    );
+
+    if (ret == -1) {
+        errno = sys_errno;
+        return -1;
+    }
+
+    return 0;
+}

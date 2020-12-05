@@ -374,3 +374,21 @@ int ttyname_r(int fd, char *name, size_t namesize) {
     assert(!"This is a stub");
     return -1;
 }
+
+unsigned alarm(unsigned seconds) {
+    int ret;
+    LINUX_SYSCALL1(ret, 37, seconds);
+    return ret;
+}
+
+int kill(pid_t pid, int signal) {
+    int ret;
+    LINUX_SYSCALL2(ret, 62, pid, signal);
+
+    if (ret < 0) {
+        errno = -ret;
+        return -1;
+    }
+
+    return 0;
+}

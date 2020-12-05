@@ -253,3 +253,18 @@ int ttyname_r(int fd, char *name, size_t namesize) {
     assert(!"This is a stub");
     return -1;
 }
+
+unsigned alarm(unsigned seconds) {
+    // TODO: Implement when echidnaOS supports it.
+    (void)seconds;
+    assert(!"This is a stub");
+    return 0;
+}
+
+int kill(pid_t pid, int signal) {
+    // TODO: Implement when echidnaOS supports it.
+    (void)pid;
+    (void)signal;
+    assert(!"This is a stub");
+    return -1;
+}

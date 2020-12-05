@@ -4,6 +4,7 @@
 #include <time.h>
 #include <setjmp.h>
 #include <string.h>
+#include <signal.h>
 
 #define CWD_LEN 300
 
@@ -39,10 +40,11 @@ int main(int argc, char *argv[]) {
         char *argv[] = {"ls", NULL};
         execvpe(argv[0], argv, environ);
     } else {
-        printf("My proud child panicking is %i\n", f);
+        sleep(3);
+        printf("Killing our child %i\n", f);
+        kill(f, SIGKILL);
     }
 
     puts(strstr("https://test.com", "ttps:"));
-    sleep(5);
     return 0;
 }
