@@ -280,6 +280,11 @@ int ferror(FILE *stream) {
     return stream->is_error;
 }
 
+void clearerr(FILE *stream) {
+    stream->is_eof   = 0;
+    stream->is_error = 1;
+}
+
 int fileno(FILE *stream) {
     return stream->inner_fd;
 }

@@ -21,6 +21,7 @@ typedef int32_t pid_t;
 typedef int32_t off_t;
 typedef int32_t ssize_t;
 typedef int32_t clockid_t;
+typedef int32_t clock_t;
 
 #ifdef __cplusplus
 }

@@ -3,6 +3,7 @@
 #include <unistd.h>
 #include <errno.h>
 #include <sys/stat.h>
+#include <sys/times.h>
 #include <time.h>
 #include <sched.h>
 #include <assert.h>
@@ -533,4 +534,11 @@ int fchmod(int fd, mode_t mode) {
     (void)mode;
     assert(!"This is a stub");
     return -1;
+}
+
+clock_t times(struct tms *t) {
+    // TODO: Implement when echidnaOS supports it.
+    (void)t;
+    assert(!"This is a stub");
+    return (clock_t)-1;
 }

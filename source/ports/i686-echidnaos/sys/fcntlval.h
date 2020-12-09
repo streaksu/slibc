@@ -17,7 +17,8 @@ extern "C" {
 #define SEEK_END 1
 #define SEEK_CUR 2
 
-#define F_SETFD 69 // Placeholder.
+#define F_SETFD 69 // Placeholder cuz echidnaOS has no fcntl.
+#define F_DUPFD 69 // Placeholder cuz echidnaOS has no fcntl.
 
 #define F_OK 1
 #define R_OK 2

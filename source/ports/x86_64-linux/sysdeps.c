@@ -3,6 +3,7 @@
 #include <unistd.h>
 #include <errno.h>
 #include <sys/stat.h>
+#include <sys/times.h>
 #include <time.h>
 #include <sched.h>
 #include <assert.h>
@@ -440,4 +441,16 @@ int fchmod(int fd, mode_t mode) {
     }
 
     return 0;
+}
+
+clock_t times(struct tms *t) {
+    int ret;
+    LINUX_SYSCALL1(ret, 100, t);
+
+    if (ret < 0) {
+        errno = -ret;
+        return (clock_t)-1;
+    }
+
+    return ret;
 }

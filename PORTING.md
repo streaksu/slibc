@@ -55,6 +55,7 @@ and their locations:
     - POSIX-compatible `tcsetattr`.
     - POSIX-compatible `tcflow`.
     - POSIX-compatible `fchmod`.
+    - POSIX-compatible `times`.
     - All the desired optional functions.
 - A declaration of `sys_siglist` and `sys_nsig`.
 
@@ -65,8 +66,8 @@ syscall interface, for example.
 - A `sys` directory under `source/ports/X-Y/sys`, which will be installed
 verbatim with the final instalation under `sys`, containing:
     - The definition of the `errnoval.h`, `fcntlval.h`, `timeval.h`, `statval.h`
-    `signalval.h`, `termiosval.h`, and `ioctlval.h` headers, which define values
-    taken by several functions that are by nature OS dependent.
+    `signalval.h`, `termiosval.h`, `timesval.h` and `ioctlval.h` headers, which
+    define values taken by several functions that are by nature OS dependent.
     - The `types` header, since the types and values are part of the OS ABI.
     - Any desired optional headers. for optional declarations or values. 
 

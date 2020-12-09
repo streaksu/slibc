@@ -46,6 +46,7 @@ size_t fwrite(const void *pointer, size_t size, size_t nitems, FILE *stream);
 size_t fread(void *pointer, size_t size, size_t nitems, FILE *stream);
 int    feof(FILE *stream);
 int    ferror(FILE *stream);
+void   clearerr(FILE *stream);
 int    fileno(FILE *stream);
 int    putchar(int character);
 int    getchar(void);
