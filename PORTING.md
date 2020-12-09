@@ -56,7 +56,7 @@ and their locations:
     - POSIX-compatible `tcflow`.
     - POSIX-compatible `fchmod`.
     - All the desired optional functions.
-- A declaration of `sys_siglist`.
+- A declaration of `sys_siglist` and `sys_nsig`.
 
 The functions being syscalls or not does not matter as long as they express
 POSIX behaviour, this could be used to emulate POSIX behaviour on a non-POSIX

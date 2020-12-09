@@ -1,5 +1,7 @@
 #include <signal.h>
 
+const int sys_nsig = 32;
+
 const char *const sys_siglist[] = {
     [SIGHUP]    = "Hangup",
     [SIGINT]    = "Terminal interrupt signal",
